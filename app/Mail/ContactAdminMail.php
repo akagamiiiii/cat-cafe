@@ -3,11 +3,12 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ContactAdminMail extends Mailable
 {
@@ -16,7 +17,7 @@ class ContactAdminMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(public array $contactInfo)
     {
         //
     }
@@ -27,8 +28,8 @@ class ContactAdminMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            //差出人
-            from: "user@example.com",
+            //第1引数にメールアドレス、第2引数に差出人名
+            from: new Address($this->contactInfo["email"], $this->contactInfo["name"]),
             //件名
             subject: 'お問い合わせがありました。',
         );
