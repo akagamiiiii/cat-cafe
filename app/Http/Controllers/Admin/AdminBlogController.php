@@ -12,7 +12,8 @@ class AdminBlogController extends Controller
     //ブログ一覧画面
     public function index()
     {
-        return view("admin.blogs.index");
+        $blogs = Blog::all();
+        return view("admin.blogs.index", ["blogs" => $blogs]);
     }
 
     //ブログ投稿画面
@@ -30,7 +31,7 @@ class AdminBlogController extends Controller
         // $blog->save();
 
         $validated = $request->validated();
-        $validated["image"] = $request->file(key:"image")->store(path:"blogs", options:"public");
+        $validated["image"] = $request->file("image")->store("blogs", "public");
         Blog::create($validated);
 
         return to_route("admin.blogs.index")->with("success", "ブログを投稿しました");
@@ -44,12 +45,11 @@ class AdminBlogController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    //指定したIDのブログ編集画面
     public function edit(string $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        return view("admin.blogs.edit", ["blog" => $blog]);
     }
 
     /**
