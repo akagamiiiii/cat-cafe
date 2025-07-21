@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -50,7 +51,8 @@ class AdminBlogController extends Controller
     //指定したIDのブログ編集画面
     public function edit(Blog $blog)
     {
-        return view("admin.blogs.edit", ["blog" => $blog]);
+        $categories = Category::all();
+        return view("admin.blogs.edit", ["blog" => $blog, "categories" => $categories]);
     }
 
     //指定したIDのブログ更新処理
@@ -66,6 +68,7 @@ class AdminBlogController extends Controller
             //変更後の画像をアップロード、保存パスを更新対象データにセット
             $updateData["image"] = $request->file("image")->store("blogs", "public");
         }
+        $blog->category()->associate($updateData["category_id"]);
         $blog->update($updateData);
 
         return to_route("admin.blogs.index")->with("success", "ブログを更新しました");
