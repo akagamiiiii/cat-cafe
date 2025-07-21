@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Cat;
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -52,7 +53,12 @@ class AdminBlogController extends Controller
     public function edit(Blog $blog)
     {
         $categories = Category::all();
-        return view("admin.blogs.edit", ["blog" => $blog, "categories" => $categories]);
+        $cats = Cat::all();
+        return view("admin.blogs.edit", [
+            "blog" => $blog, 
+            "categories" => $categories, 
+            "cats" => $cats
+        ]);
     }
 
     //指定したIDのブログ更新処理
@@ -70,6 +76,7 @@ class AdminBlogController extends Controller
         }
         $blog->category()->associate($updateData["category_id"]);
         $blog->update($updateData);
+        $blog->cats()->sync($updateData["cats"] ?? []);
 
         return to_route("admin.blogs.index")->with("success", "ブログを更新しました");
     }
