@@ -18,7 +18,7 @@ class AuthController extends Controller
         // バリデーション(フォームリクエストに書き換え可)
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required'],//パスワード:test12345
         ]);
 
         // ログイン情報が正しいか
@@ -39,5 +39,17 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'メールアドレスまたはパスワードが正しくありません',
         ])->onlyInput('email');
+    }
+
+    public function logout(Request $request)
+    {
+        // ログアウト処理
+        Auth::logout();
+        // 現在使っているセッションを無効化(セキュリティ対策のため)
+        $request->session()->invalidate();
+        // セッションを無効化を再生成(セキュリティ対策のため)
+        $request->session()->regenerateToken();
+
+        return redirect()->route("admin.login");
     }
 }
