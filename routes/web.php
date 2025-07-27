@@ -23,12 +23,7 @@ Route::prefix("/admin")
         Route::middleware("auth")
             ->group(function(){
                 //ブログ
-                Route::get("/blogs", [AdminBlogController::class, "index"])->name("blogs.index");
-                Route::get("/blogs/create", [AdminBlogController::class, "create"])->name("blogs.create");
-                Route::post("/blogs", [AdminBlogController::class, "store"])->name("blogs.store");
-                Route::get("/blogs/{blog}", [AdminBlogController::class, "edit"])->name("blogs.edit");
-                Route::put("/blogs/{blog}", [AdminBlogController::class, "update"])->name("blogs.update");
-                Route::delete("/blogs/{blog}", [AdminBlogController::class, "destroy"])->name("blogs.destroy");
+                Route::resource("/blogs", AdminBlogController::class)->except("show");
 
                 //ユーザー管理
                 Route::get("/users/create", [UserController::class, "create"])->name("users.create");
