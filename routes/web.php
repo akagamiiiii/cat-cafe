@@ -5,6 +5,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminBlogController;
+use App\Http\Controllers\ReservationController;
+use App\Models\Reservation;
 
 Route::get('/', function () {
     return view('index');
@@ -41,3 +43,11 @@ Route::prefix("/admin")
                     Route::post('/login', [AuthController::class, 'login']);
             });
     });
+
+//予約ページ
+Route::middleware("auth")
+    ->group(function(){
+        Route::get("/reservations", [ReservationController::class, "index"])->name("reservations.index");
+        Route::get("/reservations/create", [ReservationController::class, "create"])->name("reservations.create");
+        Route::post("/reservations", [ReservationController::class, "store"])->name("reservations.store");
+});

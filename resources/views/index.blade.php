@@ -11,6 +11,11 @@
     <div class="absolute right-0 bottom-0 transform translate-y-16">
       <a href="#"><img src="/images/index/video.jpg" alt="" class="shadow-lg"></a>
     </div>
+    <div class="text-center mt-12">
+      <a href="{{ route('reservations.index') }}" class="inline-block text-white font-semibold leading-none rounded py-4 px-16 bg-blue-500 hover:bg-blue-600">
+        ご予約はこちら
+      </a>
+    </div>
   </div>
 </section>
 
