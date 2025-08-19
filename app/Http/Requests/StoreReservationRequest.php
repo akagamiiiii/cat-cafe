@@ -22,10 +22,12 @@ class StoreReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'reserved_date' => ['required', 'date', 'after_or_equal:today'],
-            'reserved_time' => ['required'],
-            'number_of_people' => ['required', 'integer', 'min:1'],
-            'note' => ['nullable', 'string', 'max:1000'],
-        ];
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'email'],
+                'reserved_date' => ['required', 'date', 'after_or_equal:today'],
+                'reserved_time' => ['required'],
+                'number_of_people' => ['required', 'integer', 'min:1'],
+                'note' => ['nullable', 'string', 'max:1000'],
+            ];
     }
 }

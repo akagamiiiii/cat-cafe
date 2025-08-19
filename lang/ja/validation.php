@@ -134,10 +134,11 @@ return [
         ],
     ],
     "attributes" => [
-        "name" => "名前",
-        "name_kana" => "名前(フリガナ)",
-        "phone" => "電話番号",
-        "email" => "メールアドレス",
-        "body" => "本文",
+        'name' => 'お名前',
+        'email' => 'メールアドレス',
+        'reserved_date' => '予約日',
+        'reserved_time' => '時間',
+        'number_of_people' => '人数',
+        'note' => '備考',
     ]
 ];
