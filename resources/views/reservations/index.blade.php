@@ -24,11 +24,11 @@
             </div>
             <div class="form-group">
                 <label for="date">予約日</label>
-                <input type="date" id="date" name="date">
+                <input type="date" id="date" name="reserved_date">
             </div>
             <div class="form-group">
                 <label for="time">時間</label>
-                <select id="time" name="time">
+                <select id="time" name="reserved_time">
                     <option value="10:00">10:00</option>
                     <option value="12:00">12:00</option>
                     <option value="14:00">14:00</option>
