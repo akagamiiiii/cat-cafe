@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            //mullable()により、user_idがnullでも予約可能
             //user_idという外部キー作成->constrained()により、usersテーブルのidを参照
             //->onDelete("cascade")により、ユーザーが削除されたら、その人の予約も自動的に削除
-            $table->foreignId("user_id")->constrained()->onDelete("cascade");
-            $table->date("date");
-            $table->time("time");
-            $table->unsignedInteger("num_people");
+            $table->foreignId("user_id")->nullable()->constrained()->onDelete("cascade");
+            $table->string("name");
+            $table->string("email");
+            $table->date("reserved_date");
+            $table->time("reserved_time");
+            $table->unsignedInteger("number_of_people")->nullable();
+            $table->text("note")->nullable();
             $table->timestamps();
         });
     }
